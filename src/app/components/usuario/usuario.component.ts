@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuario',
@@ -26,8 +27,26 @@ export class UsuarioComponent implements OnInit {
   
   //Delete User
   async eliminarUsuario(cedula : string){
-    let response = await fetch(`${this.URL_API}/${cedula}`,{method:"DELETE"})
-    .then(res => res.text())
-    .then(res => console.log(res));
+    let response;
+    Swal.fire({
+      title: '',
+      text: "Estás seguro que deseas eliminar al Usuario?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc3545',
+      cancelButtonColor: '#ffc107',
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then(async(result)=> {
+      if (result.isConfirmed) {
+        response = await fetch(`${this.URL_API}/${cedula}`,{method:"DELETE"})
+        .then(res => {
+          res.text();
+          this.obtenerUsuarios().then(res=>{
+            this.usuarios = res;
+          });
+        })
+      }
+    })
   }
 }

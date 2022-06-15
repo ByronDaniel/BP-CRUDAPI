@@ -7,15 +7,13 @@ import { Usuario } from 'src/app/models/usuario.model';
   styleUrls: ['./usuario.component.css']
 })
 export class UsuarioComponent implements OnInit {
-  URL_API : string = "https://localhost:7111/api/usuario";
+  URL_API : string = "https://localhost:7111/api/Usuario";
   usuarios : Usuario[] = []
-  saludo = "Hola!!";
   constructor() { }
 
   ngOnInit(): void {
     this.obtenerUsuarios().then(res=>{
       this.usuarios = res;
-      console.log(this.usuarios);
     });
   }
 
@@ -24,5 +22,12 @@ export class UsuarioComponent implements OnInit {
     let response = await fetch(`${this.URL_API}`);
     let json = await response.json();
     return json;
+  }
+  
+  //Delete User
+  async eliminarUsuario(cedula : string){
+    let response = await fetch(`${this.URL_API}/${cedula}`,{method:"DELETE"})
+    .then(res => res.text())
+    .then(res => console.log(res));
   }
 }

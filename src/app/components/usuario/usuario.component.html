@@ -1,72 +1,146 @@
 <h1>USUARIOS</h1>
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form action="">
-            <div class="form-group">
-                <label for="ci">Cédula</label>
-                <input type="text" class="form-control" id = "ci" name="cedula" [(ngModel)] = "cedula">
-            </div>
-            <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" class="form-control" id = "nombre" name="nombre" [(ngModel)] = "nombre">
-            </div>
-            <div class="form-group">
-                <label for="apellido">Apellido</label>
-                <input type="text" class="form-control" id = "apellido" name="apellido" [(ngModel)] = "apellido">
-            </div>
-            <div class="form-group">
-                <label for="fechaNacimiento">Fecha de nacimiento</label>
-                <input type="date" class="form-control" id = "fechaNacimiento" name="fechaNacimiento" [(ngModel)] = "fechaNacimiento">
-            </div>
-            <div class="form-group">
-                <label for="salarioPromedio">Salario Promedio</label>
-                <input type="number" class="form-control" id = "salarioPromedio" name="salario" [(ngModel)] = "salario">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ modalTitle }}</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="form-group">
+            <label for="ci">Cédula</label>
+            <input
+              type="text"
+              class="form-control"
+              id="ci"
+              name="cedula"
+              [(ngModel)]="cedula"
+            />
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              name="nombre"
+              [(ngModel)]="nombre"
+            />
+          </div>
+          <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input
+              type="text"
+              class="form-control"
+              id="apellido"
+              name="apellido"
+              [(ngModel)]="apellido"
+            />
+          </div>
+          <div class="form-group">
+            <label for="fechaNacimiento">Fecha de nacimiento</label>
+            <input
+              type="date"
+              class="form-control"
+              id="fechaNacimiento"
+              name="fechaNacimiento"
+              [(ngModel)]="fechaNacimiento"
+            />
+          </div>
+          <div class="form-group">
+            <label for="salarioPromedio">Salario Promedio</label>
+            <input
+              type="number"
+              class="form-control"
+              id="salarioPromedio"
+              name="salario"
+              [(ngModel)]="salario"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
 
-          <button type="button" class="btn btn-primary" (click)="agregarUsuario()" data-bs-dismiss="modal" *ngIf="isSave; else editar">Guardar</button>
-          <ng-template #editar>
-              <button type="button" class="btn btn-primary" (click)="editUsuario()" data-bs-dismiss="modal">Editar</button>
-          </ng-template>
-        </div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="agregarUsuario()"
+          data-bs-dismiss="modal"
+          *ngIf="isSave"
+        >
+          Guardar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="editUsuario()"
+          *ngIf="isSave == false"
+        >
+          Editar
+        </button>
       </div>
     </div>
   </div>
+</div>
 
 <table class="table table-dark table-hover">
-    <thead>
-        <tr>
-          <th scope="col">Ci</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Apellido</th>
-          <th scope="col">Fecha de Nacimiento</th>
-          <th scope="col">Salario Promedio</th>
-          <th scope="col">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus" (click)="nuevoUsuario()"></i> Nuevo</button>
-          </th>
-        </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let usuario of usuarios; let i = index">
-        <th scope="row">{{usuario.ci}}</th>
-        <td>{{usuario.nombre}}</td>
-        <td>{{usuario.apellido}}</td>
-        <td>{{usuario.fechaNacimiento}}</td>
-        <td>{{usuario.salarioPromedio}}</td>
-        <td>
-            <button class="btn btn-primary me-2"><i class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editarUsuario(usuario)"></i></button>
-            <button class="btn btn-danger" (click)="eliminarUsuario(usuario.ci)"><i class="fa-solid fa-trash-can"></i></button>
-        </td>
-      </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th scope="col">Ci</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Fecha de Nacimiento</th>
+      <th scope="col">Salario Promedio</th>
+      <th scope="col">
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="nuevoUsuario()"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          <i class="fa-solid fa-plus"></i> Nuevo
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let usuario of usuarios; let i = index">
+      <th scope="row">{{ usuario.ci }}</th>
+      <td>{{ usuario.nombre }}</td>
+      <td>{{ usuario.apellido }}</td>
+      <td>{{ usuario.fechaNacimiento }}</td>
+      <td>{{ usuario.salarioPromedio }}</td>
+      <td>
+        <button
+          class="btn btn-primary me-2"
+          (click)="editarUsuario(usuario)"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          <i class="fa-solid fa-pencil"></i>
+        </button>
+        <button class="btn btn-danger" (click)="eliminarUsuario(usuario.ci)">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>

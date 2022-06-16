@@ -19,10 +19,11 @@ export class UsuarioComponent implements OnInit {
   salario : number = 0;
   modalTitle : string = ""
   isSave : boolean = true;
-  constructor() { }
+  constructor() { 
+    this.listar();
+  }
 
   ngOnInit(): void {
-    this.listar();
   }
   
   listar(){
@@ -111,13 +112,12 @@ export class UsuarioComponent implements OnInit {
   }
   //Edit User
   editarUsuario(usuario : Usuario){
+    this.modalTitle = `Editar Usuario ${usuario.nombre}`;
     this.cedula = usuario.ci;
     this.nombre = usuario.nombre;
     this.apellido = usuario.apellido;
     this.fechaNacimiento = usuario.fechaNacimiento;
     this.salario = usuario.salarioPromedio;
-
-    this.modalTitle = `Editar Usuario ${usuario.nombre}`;
     this.isSave = false;
   }
 

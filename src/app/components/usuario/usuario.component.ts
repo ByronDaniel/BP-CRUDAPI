@@ -10,6 +10,15 @@ import Swal from 'sweetalert2';
 export class UsuarioComponent implements OnInit {
   URL_API : string = "https://localhost:7111/api/Usuario";
   usuarios : Usuario[] = []
+
+  //form vars
+  cedula : string = "";
+  nombre : string = "";
+  apellido : string = "";
+  fechaNacimiento : string = "";
+  salario : number = 0;
+
+
   constructor() { }
 
   ngOnInit(): void {
@@ -45,8 +54,50 @@ export class UsuarioComponent implements OnInit {
           this.obtenerUsuarios().then(res=>{
             this.usuarios = res;
           });
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Eliminado con Exito!',
+            showConfirmButton: false,
+            timer: 1000
+          })
         })
       }
     })
   }
+
+  //Add User
+  async agregarUsuario(){
+    let usuario : Usuario = { 
+      ci: this.cedula,
+      nombre: this.nombre,
+      apellido: this.apellido,
+      fechaNacimiento: this.fechaNacimiento,
+      salarioPromedio: this.salario
+    }
+    await fetch(`${this.URL_API}`, {
+      method: 'POST', 
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(usuario)
+    }).then(res => {
+      console.log(res.json());
+      this.obtenerUsuarios().then(res=>{
+        this.usuarios = res;
+      });
+      
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Heroe guardado',
+        showConfirmButton: false,
+        timer: 1000
+      });
+      
+      
+    })
+  }
+
 }

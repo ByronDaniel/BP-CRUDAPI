@@ -1,4 +1,44 @@
 <h1>USUARIOS</h1>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            <div class="form-group">
+                <label for="ci">Cédula</label>
+                <input type="text" class="form-control" id = "ci" name="cedula" [(ngModel)] = "cedula">
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id = "nombre" name="nombre" [(ngModel)] = "nombre">
+            </div>
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" class="form-control" id = "apellido" name="apellido" [(ngModel)] = "apellido">
+            </div>
+            <div class="form-group">
+                <label for="fechaNacimiento">Fecha de nacimiento</label>
+                <input type="date" class="form-control" id = "fechaNacimiento" name="fechaNacimiento" [(ngModel)] = "fechaNacimiento">
+            </div>
+            <div class="form-group">
+                <label for="salarioPromedio">Salario Promedio</label>
+                <input type="number" class="form-control" id = "salarioPromedio" name="salario" [(ngModel)] = "salario">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="agregarUsuario()" data-bs-dismiss="modal">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <table class="table table-dark table-hover">
     <thead>
         <tr>
@@ -8,7 +48,7 @@
           <th scope="col">Fecha de Nacimiento</th>
           <th scope="col">Salario Promedio</th>
           <th scope="col">
-            <button class="btn btn-success"><i class="fa-solid fa-plus"></i> Nuevo</button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i> Nuevo</button>
           </th>
         </tr>
     </thead>

@@ -17,16 +17,19 @@ export class UsuarioComponent implements OnInit {
   apellido : string = "";
   fechaNacimiento : string = "";
   salario : number = 0;
-
-
+  modalTitle : string = ""
+  isSave : boolean = true;
   constructor() { }
 
   ngOnInit(): void {
+    this.listar();
+  }
+  
+  listar(){
     this.obtenerUsuarios().then(res=>{
       this.usuarios = res;
     });
   }
-
   //Get to Api
   async obtenerUsuarios() : Promise <any>{
     let response = await fetch(`${this.URL_API}`);
@@ -95,9 +98,57 @@ export class UsuarioComponent implements OnInit {
         showConfirmButton: false,
         timer: 1000
       });
-      
-      
-    })
+    });
+  }
+  nuevoUsuario(){
+    this.modalTitle = `Crear Usuario`;
+    this.cedula = "";
+    this.nombre = "";
+    this.apellido = "";
+    this.fechaNacimiento = "";
+    this.salario = 0;
+    this.isSave = true;
+  }
+  //Edit User
+  editarUsuario(usuario : Usuario){
+    this.cedula = usuario.ci;
+    this.nombre = usuario.nombre;
+    this.apellido = usuario.apellido;
+    this.fechaNacimiento = usuario.fechaNacimiento;
+    this.salario = usuario.salarioPromedio;
+
+    this.modalTitle = `Editar Usuario ${usuario.nombre}`;
+    this.isSave = false;
   }
 
+  async editUsuario(){
+    let usuario : Usuario = { 
+      ci: this.cedula,
+      nombre: this.nombre,
+      apellido: this.apellido,
+      fechaNacimiento: this.fechaNacimiento,
+      salarioPromedio: this.salario
+    }
+    await fetch(`${this.URL_API}`, {
+      method: 'PUT', 
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(usuario)
+    }).then(res => {
+      console.log(res.json());
+      this.obtenerUsuarios().then(res=>{
+        this.usuarios = res;
+      });
+      
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Heroe editado',
+        showConfirmButton: false,
+        timer: 1000
+      });
+    });
+  }
 }

@@ -4,7 +4,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Agregar Usuario</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -33,7 +33,11 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" (click)="agregarUsuario()" data-bs-dismiss="modal">Guardar</button>
+
+          <button type="button" class="btn btn-primary" (click)="agregarUsuario()" data-bs-dismiss="modal" *ngIf="isSave; else editar">Guardar</button>
+          <ng-template #editar>
+              <button type="button" class="btn btn-primary" (click)="editUsuario()" data-bs-dismiss="modal">Editar</button>
+          </ng-template>
         </div>
       </div>
     </div>
@@ -48,7 +52,7 @@
           <th scope="col">Fecha de Nacimiento</th>
           <th scope="col">Salario Promedio</th>
           <th scope="col">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i> Nuevo</button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus" (click)="nuevoUsuario()"></i> Nuevo</button>
           </th>
         </tr>
     </thead>
@@ -60,7 +64,7 @@
         <td>{{usuario.fechaNacimiento}}</td>
         <td>{{usuario.salarioPromedio}}</td>
         <td>
-            <button class="btn btn-primary me-2"><i class="fa-solid fa-pencil"></i></button>
+            <button class="btn btn-primary me-2"><i class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editarUsuario(usuario)"></i></button>
             <button class="btn btn-danger" (click)="eliminarUsuario(usuario.ci)"><i class="fa-solid fa-trash-can"></i></button>
         </td>
       </tr>
